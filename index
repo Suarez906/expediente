@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cédula de Notificación — Expediente N° 001-2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Spectral:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --escritorio:#2B3A33;
+    --escritorio-borde:#1D2822;
+    --papel:#FBFAF6;
+    --papel-sombra:rgba(15,25,20,.45);
+    --tinta:#1A1A1C;
+    --grafito:#6E6A63;
+    --sello:#6C3FA6;
+    --sello-tenue:rgba(108,63,166,.14);
+    --granate:#9B2430;
+    --linea:#D8D4C8;
+  }
+
+  *{box-sizing:border-box}
+
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    margin:0;
+    background:var(--escritorio);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,.05), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(0,0,0,.30), transparent 55%);
+    color:var(--tinta);
+    font-family:"Courier Prime","Courier New",monospace;
+    font-size:16px;
+    line-height:1.75;
+    padding:clamp(12px,4vw,56px) clamp(10px,4vw,24px);
+    min-height:100vh;
+  }
+
+  :focus-visible{outline:2px solid var(--sello);outline-offset:3px}
+
+  /* ---------- SOBRE ---------- */
+  .sobre-capa{
+    position:fixed;inset:0;z-index:50;
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    background:rgba(24,32,28,.92);
+  }
+  .sobre{
+    width:min(420px,92vw);
+    background:#EFECE2;
+    border:1px solid #CFC9BA;
+    border-radius:2px;
+    box-shadow:0 30px 60px rgba(0,0,0,.5);
+    padding:34px 30px 30px;
+    text-align:center;
+    position:relative;
+  }
+  .sobre::before{
+    content:"";position:absolute;left:0;right:0;top:0;height:74px;
+    background:linear-gradient(160deg,#E4E0D4 50%,#DAD5C6 50%);
+    border-bottom:1px solid #CFC9BA;
+  }
+  .sobre-lacre{
+    position:relative;width:74px;height:74px;margin:6px auto 22px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #8A54C4, var(--sello) 60%, #4A2472);
+    box-shadow:0 4px 10px rgba(74,36,114,.45);
+    display:flex;align-items:center;justify-content:center;
+    color:#EDE4F7;font-family:"Spectral",Georgia,serif;font-size:26px;letter-spacing:.05em;
+  }
+  .sobre h1{
+    font-family:"Spectral",Georgia,serif;font-weight:600;
+    font-size:19px;letter-spacing:.02em;margin:0 0 6px;
+  }
+  .sobre p{font-size:13.5px;color:#4A4740;margin:0 0 22px;line-height:1.6}
+  .sobre-meta{font-size:12px;color:var(--grafito);margin-top:18px}
+
+  .boton{
+    font-family:"Courier Prime","Courier New",monospace;
+    font-size:14px;letter-spacing:.03em;
+    background:var(--sello);color:#fff;
+    border:none;border-radius:2px;
+    padding:12px 22px;cursor:pointer;
+    transition:background .18s ease;
+  }
+  .boton:hover{background:#57318A}
+  .boton:disabled{background:#9A93A6;cursor:default}
+
+  .boton-linea{
+    font-family:"Courier Prime","Courier New",monospace;
+    font-size:13.5px;
+    background:transparent;color:var(--sello);
+    border:1px solid var(--sello);border-radius:2px;
+    padding:9px 18px;cursor:pointer;
+    transition:background .18s ease,color .18s ease;
+  }
+  .boton-linea:hover{background:var(--sello-tenue)}
+
+  /* ---------- EXPEDIENTE ---------- */
+  .expediente{
+    max-width:720px;margin:0 auto;
+    background:var(--papel);
+    box-shadow:0 26px 50px var(--papel-sombra);
+    padding:clamp(26px,6vw,64px) clamp(20px,6vw,68px) clamp(34px,6vw,56px);
+    position:relative;
+    opacity:0;transform:translateY(14px);
+  }
+  .expediente.abierto{
+    opacity:1;transform:none;
+    transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1);
+  }
+  /* margen reglado del papel judicial */
+  .expediente::before{
+    content:"";position:absolute;top:0;bottom:0;left:clamp(10px,3vw,30px);
+    width:3px;border-left:1px solid rgba(155,36,48,.30);border-right:1px solid rgba(155,36,48,.30);
+  }
+
+  .membrete{text-align:center;border-bottom:1px solid var(--linea);padding-bottom:22px}
+  .membrete h1{
+    font-family:"Spectral",Georgia,serif;font-weight:600;
+    font-size:clamp(19px,4.4vw,25px);line-height:1.3;margin:0;letter-spacing:.01em;
+  }
+  .membrete h2{
+    font-family:"Spectral",Georgia,serif;font-weight:400;font-style:italic;
+    font-size:15px;color:var(--grafito);margin:6px 0 0;
+  }
+
+  .caratula{
+    display:grid;grid-template-columns:auto 1fr;gap:2px 14px;
+    font-size:13.5px;margin:22px 0 8px;
+  }
+  .caratula dt{color:var(--grafito)}
+  .caratula dd{margin:0}
+
+  .resolucion{
+    font-family:"Spectral",Georgia,serif;font-size:15px;
+    border-top:1px solid var(--linea);margin-top:22px;padding-top:20px;
+  }
+
+  .cuerpo p{margin:0 0 16px;text-align:justify;hyphens:auto}
+  .rotulo{font-weight:700;letter-spacing:.04em}
+
+  .considerandos{list-style:none;margin:6px 0 0;padding:0}
+  .considerandos li{border-bottom:1px solid var(--linea)}
+  .considerandos li:first-child{border-top:1px solid var(--linea)}
+  .cons-tecla{
+    width:100%;text-align:left;background:none;border:none;
+    font-family:inherit;font-size:15px;color:var(--tinta);
+    padding:14px 30px 14px 0;cursor:pointer;position:relative;line-height:1.5;
+  }
+  .cons-tecla::after{
+    content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);
+    color:var(--sello);font-size:18px;
+  }
+  .cons-tecla[aria-expanded="true"]::after{content:"–"}
+  .cons-texto{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease;
+  }
+  .cons-texto p{margin:0 0 18px;text-align:justify}
+  @media (prefers-reduced-motion:reduce){
+    .cons-texto{transition:none}
+    .expediente.abierto{transition:none}
+  }
+
+  .anexos{list-style:none;margin:8px 0 0;padding:0;font-size:14.5px}
+  .anexos li{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:9px 0;border-bottom:1px dotted var(--linea);
+  }
+  .anexos button{
+    flex:0 0 auto;margin-top:2px;
+    width:20px;height:20px;padding:0;
+    border:1px solid var(--sello);border-radius:2px;
+    background:transparent;color:var(--sello);
+    font-family:inherit;font-size:13px;line-height:1;cursor:pointer;
+  }
+  .anexos button[aria-pressed="true"]{background:var(--sello);color:#fff}
+  .anexo-ref{color:var(--grafito);white-space:nowrap}
+
+  .objecion{
+    margin:30px 0;padding:20px;border:1px solid var(--linea);
+    display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  }
+  .objecion p{margin:0;font-size:13.5px;color:var(--grafito);flex:1 1 220px}
+  #respuestaObjecion{
+    color:var(--granate);font-family:"Spectral",Georgia,serif;
+    font-size:15px;font-style:italic;min-height:1.5em;flex-basis:100%;margin:0;
+  }
+
+  .fallo{position:relative;margin-top:34px;padding-top:26px;border-top:2px solid var(--tinta)}
+  .fallo h3{
+    font-family:"Spectral",Georgia,serif;font-weight:600;font-size:17px;
+    margin:0 0 14px;letter-spacing:.08em;
+  }
+  .fallo-oculto{filter:blur(6px);user-select:none;transition:filter .6s ease}
+  .fallo-visible{filter:none}
+
+  .sello-fundada{
+    position:absolute;right:clamp(-6px,2vw,10px);top:6px;
+    width:clamp(120px,26vw,158px);
+    opacity:0;transform:rotate(-14deg) scale(1.5);
+    transition:opacity .28s ease,transform .28s cubic-bezier(.2,.9,.3,1.2);
+    pointer-events:none;
+  }
+  .sello-fundada.marcado{opacity:.85;transform:rotate(-14deg) scale(1)}
+
+  .firma{margin-top:34px;border-top:1px solid var(--linea);padding-top:24px}
+  .firma h3{font-family:"Spectral",Georgia,serif;font-weight:600;font-size:16px;margin:0 0 6px}
+  .firma p{font-size:13.5px;color:var(--grafito);margin:0 0 14px}
+  #lienzoFirma{
+    width:100%;height:150px;display:block;
+    background:#fff;border:1px solid var(--linea);
+    touch-action:none;cursor:crosshair;
+  }
+  .firma-pie{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    justify-content:space-between;margin-top:12px;
+  }
+
+  .constancia{
+    margin-top:30px;padding:22px;border:1px solid var(--sello);
+    background:var(--sello-tenue);display:none;
+  }
+  .constancia.visible{display:block}
+  .constancia h3{
+    font-family:"Spectral",Georgia,serif;font-weight:600;font-size:16px;margin:0 0 10px;color:#4A2472;
+  }
+  .constancia p{margin:0 0 12px;font-size:14.5px}
+  .conteo{font-family:"Spectral",Georgia,serif;font-size:clamp(30px,8vw,44px);line-height:1.1;color:var(--sello)}
+  .conteo span{font-family:"Courier Prime",monospace;font-size:14px;color:var(--grafito);display:block;margin-top:6px}
+
+  .pie{
+    margin-top:36px;padding-top:18px;border-top:1px solid var(--linea);
+    font-size:12.5px;color:var(--grafito);text-align:center;line-height:1.7;
+  }
+
+  .corazon{
+    position:fixed;top:-30px;z-index:60;pointer-events:none;
+    color:var(--granate);font-size:18px;
+    animation:caer linear forwards;
+  }
+  @keyframes caer{
+    to{transform:translateY(104vh) rotate(220deg);opacity:0}
+  }
+
+  @media (max-width:520px){
+    .caratula{grid-template-columns:1fr;gap:0 0}
+    .caratula dt{margin-top:8px}
+    .expediente::before{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     PERSONALIZA AQUÍ: nombres, fechas y textos.
+     ════════════════════════════════════════════════════════════ -->
+<script>
+  const DATOS = {
+    demandante: "SUÁREZ DELGADO, Edinson Alexandro",
+    demandada:  "TROYA ACHA, Karen Yesabela",
+    apodoCorto: "Karen",        // cómo la llamas normalmente
+    apellido:   "Troya",        // se usa en el "doctora ___"
+    inicio:     "2015-02-11",   // desde el 11 de febrero de 2015
+    sede:       "Lambayeque"
+  };
+</script>
+
+<!-- SOBRE -->
+<div class="sobre-capa" id="sobreCapa">
+  <div class="sobre">
+    <div class="sobre-lacre" aria-hidden="true">§</div>
+    <h1>Cédula de notificación</h1>
+    <p>Se le notifica la Resolución N° 01 recaída en el Expediente N° 001-2026, para los fines de ley.</p>
+    <button class="boton" id="abrirSobre">Abrir la notificación</button>
+    <div class="sobre-meta" id="sobreMeta"></div>
+  </div>
+</div>
+
+<!-- EXPEDIENTE -->
+<main class="expediente" id="expediente" aria-hidden="true">
+
+  <header class="membrete">
+    <h1>Corte Superior de Justicia del Corazón</h1>
+    <h2>Juzgado Especializado en Asuntos Irremediables — <span id="sede"></span></h2>
+  </header>
+
+  <dl class="caratula">
+    <dt>Expediente</dt><dd>001-2026-0-1706-JR-AM-01 (E.S.D. / K.T.A.)</dd>
+    <dt>Demandante</dt><dd id="cDemandante"></dd>
+    <dt>Demandada</dt><dd id="cDemandada"></dd>
+    <dt>Materia</dt><dd>Reconocimiento de amor incondicional</dd>
+    <dt>Juez</dt><dd>El Destino</dd>
+    <dt>Especialista</dt><dd>La Casualidad</dd>
+  </dl>
+
+  <div class="resolucion">
+    <p><span class="rotulo">RESOLUCIÓN NÚMERO UNO</span><br>
+    <span id="sedeFecha"></span>.—</p>
+
+    <div class="cuerpo">
+      <p><span class="rotulo">VISTOS:</span> el escrito presentado por el demandante, quien solicita se declare, con carácter permanente e irrevocable, que está enamorado de la demandada; y habiéndose prescindido del plazo para contestar por resultar evidente el resultado; y,</p>
+      <p><span class="rotulo">CONSIDERANDO:</span></p>
+    </div>
+
+    <ul class="considerandos" id="considerandos"></ul>
+
+    <div class="cuerpo" style="margin-top:26px">
+      <p><span class="rotulo">MEDIOS PROBATORIOS.—</span> Se admiten los siguientes anexos, ofrecidos por el demandante y no observados por la parte contraria. Márcalos conforme los vayas recordando.</p>
+    </div>
+    <ul class="anexos" id="anexos"></ul>
+
+    <div class="objecion">
+      <p>Si algo de lo anterior le parece exagerado, la demandada tiene derecho a objetar.</p>
+      <button class="boton-linea" id="botonObjecion">¡Objeción, señoría!</button>
+      <p id="respuestaObjecion" role="status"></p>
+    </div>
+
+    <section class="fallo">
+      <svg class="sello-fundada" id="selloFundada" viewBox="0 0 200 200" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
+        <circle cx="100" cy="100" r="94" fill="none" stroke="#6C3FA6" stroke-width="4"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#6C3FA6" stroke-width="1.5"/>
+        <path id="arcoSup" d="M100,100 m-66,0 a66,66 0 1,1 132,0" fill="none"/>
+        <path id="arcoInf" d="M100,100 m-62,0 a62,62 0 1,0 124,0" fill="none"/>
+        <text fill="#6C3FA6" font-family="Spectral,Georgia,serif" font-size="17" letter-spacing="2.4">
+          <textPath href="#arcoSup" xlink:href="#arcoSup" startOffset="50%" text-anchor="middle">JUZGADO DEL CORAZÓN</textPath>
+        </text>
+        <text fill="#6C3FA6" font-family="Spectral,Georgia,serif" font-size="14" letter-spacing="2">
+          <textPath href="#arcoInf" xlink:href="#arcoInf" startOffset="50%" text-anchor="middle">SIN RECURSO ALGUNO</textPath>
+        </text>
+        <text x="100" y="96" fill="#6C3FA6" font-family="Spectral,Georgia,serif" font-size="30" font-weight="600" text-anchor="middle">FUNDADA</text>
+        <text x="100" y="120" fill="#6C3FA6" font-family="Courier Prime,monospace" font-size="12" text-anchor="middle">EN TODOS SUS EXTREMOS</text>
+      </svg>
+
+      <h3>SE RESUELVE</h3>
+      <div class="cuerpo fallo-oculto" id="textoFallo">
+        <p><strong>1.</strong> Declarar FUNDADA la demanda en todos sus extremos, y en consecuencia, reconocer que el demandante está enamorado de la demandada de manera pública, notoria y sin atenuantes.</p>
+        <p><strong>2.</strong> ORDENAR a la demandada que se deje querer, bajo apercibimiento de que igual la van a querer.</p>
+        <p><strong>3.</strong> DECLARAR improcedente cualquier recurso de apelación, nulidad o queja que se interponga contra la presente, por carecer manifiestamente de fundamento.</p>
+        <p><strong>4.</strong> Sin costas ni costos, por tratarse de un acto enteramente voluntario.</p>
+      </div>
+      <p style="margin-top:6px"><button class="boton" id="botonFallo">Leer el fallo</button></p>
+    </section>
+
+    <section class="firma">
+      <h3>Constancia de notificación</h3>
+      <p>Firme en el recuadro para darse por notificada. Sí, con el dedo también vale.</p>
+      <canvas id="lienzoFirma" aria-label="Recuadro para firmar"></canvas>
+      <div class="firma-pie">
+        <button class="boton-linea" id="borrarFirma">Borrar la firma</button>
+        <button class="boton" id="darNotificada" disabled>Darme por notificada</button>
+      </div>
+    </section>
+
+    <section class="constancia" id="constancia" aria-live="polite">
+      <h3>Resolución consentida y ejecutoriada</h3>
+      <p>Notificada la demandada y vencido el plazo sin impugnación, la presente adquiere la calidad de cosa juzgada. Ejecútese.</p>
+      <p class="conteo" id="conteo"></p>
+      <p style="margin-top:14px" id="notaFinal"></p>
+    </section>
+
+    <p class="pie">
+      Lo que notifico a usted conforme a ley.<br>
+      Este documento no tiene valor legal alguno. Todo lo demás sí.
+    </p>
+  </div>
+</main>
+
+<script>
+(function(){
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Contenido ---------- */
+  const CONSIDERANDOS = [
+    ["PRIMERO.— Sobre la conducta de la demandada.",
+     "Que la demandada tiene la costumbre de discutir con la razón hasta ganarle, y aun así escuchar. Esta conducta, lejos de ser reprochable, constituye el mérito central de la presente causa."],
+    ["SEGUNDO.— Sobre su ejercicio profesional.",
+     "Que la demandada lee todo, subraya todo y no firma nada sin entenderlo. Este juzgado la exhorta a leer la presente resolución con la misma severidad, advirtiéndole desde ya que no encontrará una sola cláusula abusiva."],
+    ["TERCERO.— Sobre la conducta procesal del demandante.",
+     "Que el demandante piensa en la demandada en horarios inhábiles, feriados, vacaciones judiciales y durante las audiencias más importantes de su vida. Se le tiene por acreditado."],
+    ["CUARTO.— Sobre el tiempo transcurrido.",
+     "Que las partes iniciaron esta relación siendo adolescentes y hoy comparecen hechos adultos. Este juzgado deja constancia de que crecer al lado de alguien es una prueba que no admite discusión."],
+    ["QUINTO.— Sobre la caducidad.",
+     "Que el plazo para dejar de quererla venció hace tiempo y el demandante, con evidente negligencia, no lo interpuso. Habiendo operado la caducidad, el derecho quedó firme."]
+  ];
+
+  const ANEXOS = [
+    ["1-A", "Acta de inicio del 11 de febrero de 2015, fecha en que dejamos de ser dos personas que se caían bien."],
+    ["1-B", "Fotografías de once años ordenadas por fecha. En las primeras salimos adolescentes y en las últimas ya no. En todas sale ella."],
+    ["1-C", "Flores entregadas de manera constante durante todo el período: rosas rojas desde el inicio y, en el último año, tulipanes rojos. Cambió la flor, no la costumbre."],
+    ["1-D", "Constancia de que ninguna decisión importante de estos años se tomó en solitario. Consta en autos que aquí se trabaja en equipo."],
+    ["1-E", "Todo lo que no entra en el expediente: las conversaciones largas, los días malos que aguantamos juntos y los planes que todavía no le contamos a nadie."]
+  ];
+
+  const OBJECIONES = [
+    "Denegada. Continúe el demandante.",
+    `Denegada nuevamente. No insista, doctora ${DATOS.apellido}.`,
+    "Se llama la atención a la parte por conducta temeraria.",
+    "Multa de un beso, de ejecución inmediata e inapelable.",
+    "El juzgado ya la conoce: usted objeta porque le da vergüenza que sea cierto."
+  ];
+
+  /* ---------- Datos ---------- */
+  const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"];
+  const hoy = new Date();
+  const fechaLarga = `${DATOS.sede}, ${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()}`;
+
+  document.getElementById("sede").textContent = DATOS.sede;
+  document.getElementById("sedeFecha").textContent = fechaLarga;
+  document.getElementById("cDemandante").textContent = DATOS.demandante;
+  document.getElementById("cDemandada").textContent = DATOS.demandada;
+  document.getElementById("sobreMeta").textContent = `Dirigida a la doctora ${DATOS.apellido}`;
+  document.getElementById("notaFinal").textContent =
+    `Y que conste en acta, ${DATOS.apodoCorto}: acá no hay demandante ni demandada. Somos un equipo desde el 11 de febrero de 2015 y así seguimos.`;
+
+  /* ---------- Considerandos ---------- */
+  const ulCons = document.getElementById("considerandos");
+  CONSIDERANDOS.forEach(([titulo, texto], i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <button class="cons-tecla" aria-expanded="false" aria-controls="cons${i}">${titulo}</button>
+      <div class="cons-texto" id="cons${i}"><p>${texto}</p></div>`;
+    ulCons.appendChild(li);
+  });
+  ulCons.addEventListener("click", e => {
+    const boton = e.target.closest(".cons-tecla");
+    if(!boton) return;
+    const panel = document.getElementById(boton.getAttribute("aria-controls"));
+    const abierto = boton.getAttribute("aria-expanded") === "true";
+    boton.setAttribute("aria-expanded", String(!abierto));
+    panel.style.maxHeight = abierto ? "0" : panel.scrollHeight + "px";
+  });
+
+  /* ---------- Anexos ---------- */
+  const ulAnex = document.getElementById("anexos");
+  ANEXOS.forEach(([ref, texto]) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <button aria-pressed="false" aria-label="Marcar anexo ${ref} como leído"></button>
+      <span><span class="anexo-ref">Anexo ${ref}.</span> ${texto}</span>`;
+    ulAnex.appendChild(li);
+  });
+  ulAnex.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if(!b) return;
+    const marcado = b.getAttribute("aria-pressed") === "true";
+    b.setAttribute("aria-pressed", String(!marcado));
+    b.textContent = marcado ? "" : "✓";
+  });
+
+  /* ---------- Objeción ---------- */
+  let nObj = 0;
+  const respuesta = document.getElementById("respuestaObjecion");
+  document.getElementById("botonObjecion").addEventListener("click", () => {
+    respuesta.textContent = OBJECIONES[Math.min(nObj, OBJECIONES.length - 1)];
+    nObj++;
+  });
+
+  /* ---------- Fallo ---------- */
+  document.getElementById("botonFallo").addEventListener("click", e => {
+    document.getElementById("textoFallo").classList.add("fallo-visible");
+    document.getElementById("selloFundada").classList.add("marcado");
+    e.target.remove();
+  });
+
+  /* ---------- Firma ---------- */
+  const lienzo = document.getElementById("lienzoFirma");
+  const ctx = lienzo.getContext("2d");
+  let firmando = false, hayTrazo = false;
+
+  function ajustarLienzo(){
+    const guardado = hayTrazo ? lienzo.toDataURL() : null;
+    const escala = window.devicePixelRatio || 1;
+    lienzo.width = lienzo.offsetWidth * escala;
+    lienzo.height = lienzo.offsetHeight * escala;
+    ctx.setTransform(escala, 0, 0, escala, 0, 0);
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#2E1A54";
+    if(guardado){
+      const img = new Image();
+      img.onload = () => ctx.drawImage(img, 0, 0, lienzo.offsetWidth, lienzo.offsetHeight);
+      img.src = guardado;
+    }
+  }
+
+  function punto(ev){
+    const r = lienzo.getBoundingClientRect();
+    return { x: ev.clientX - r.left, y: ev.clientY - r.top };
+  }
+
+  lienzo.addEventListener("pointerdown", ev => {
+    firmando = true;
+    lienzo.setPointerCapture(ev.pointerId);
+    const p = punto(ev);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  });
+  lienzo.addEventListener("pointermove", ev => {
+    if(!firmando) return;
+    const p = punto(ev);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    if(!hayTrazo){
+      hayTrazo = true;
+      document.getElementById("darNotificada").disabled = false;
+    }
+  });
+  ["pointerup","pointerleave","pointercancel"].forEach(t =>
+    lienzo.addEventListener(t, () => { firmando = false; })
+  );
+
+  document.getElementById("borrarFirma").addEventListener("click", () => {
+    ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+    hayTrazo = false;
+    document.getElementById("darNotificada").disabled = true;
+  });
+
+  /* ---------- Constancia + conteo ---------- */
+  function diasJuntos(){
+    const inicio = new Date(DATOS.inicio + "T00:00:00");
+    if(isNaN(inicio)) return null;
+    return Math.floor((hoy - inicio) / 86400000);
+  }
+
+  document.getElementById("darNotificada").addEventListener("click", e => {
+    const caja = document.getElementById("constancia");
+    caja.classList.add("visible");
+    const d = diasJuntos();
+    document.getElementById("conteo").innerHTML = d !== null && d >= 0
+      ? `${d.toLocaleString("es-PE")} días<span>de condena cumplida, sin un solo día de buena conducta desperdiciado</span>`
+      : `Cosa juzgada<span>firme desde el primer día</span>`;
+    e.target.disabled = true;
+    e.target.textContent = "Notificada";
+    caja.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    if(!reduceMotion) lluviaDeCorazones();
+  });
+
+  function lluviaDeCorazones(){
+    for(let i = 0; i < 26; i++){
+      const c = document.createElement("div");
+      c.className = "corazon";
+      c.textContent = "♥";
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.fontSize = (13 + Math.random() * 16) + "px";
+      c.style.opacity = 0.5 + Math.random() * 0.5;
+      c.style.animationDuration = (3.4 + Math.random() * 2.6) + "s";
+      c.style.animationDelay = (Math.random() * 1.6) + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 7000);
+    }
+  }
+
+  /* ---------- Apertura ---------- */
+  document.getElementById("abrirSobre").addEventListener("click", () => {
+    document.getElementById("sobreCapa").remove();
+    const exp = document.getElementById("expediente");
+    exp.setAttribute("aria-hidden", "false");
+    exp.classList.add("abierto");
+    ajustarLienzo();
+  });
+
+  window.addEventListener("resize", () => { if(lienzo.offsetWidth) ajustarLienzo(); });
+})();
+</script>
+</body>
+</html>
